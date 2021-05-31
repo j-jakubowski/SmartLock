@@ -224,6 +224,8 @@ int main(void)
         assert(false);
     }
 
+    HAL_CODEC_SetMicGain(&codecHandle, 99);
+
     while (1)
     {
         if (emptyBlock > 0)

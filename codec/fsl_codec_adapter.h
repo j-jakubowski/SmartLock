@@ -72,6 +72,16 @@ status_t HAL_CODEC_SetFormat(void *handle, uint32_t mclk, uint32_t sampleRate, u
  */
 status_t HAL_CODEC_SetVolume(void *handle, uint32_t playChannel, uint32_t volume);
 
+
+/*!
+ * @brief set audio codec ADC(Analog Mic) Gain.
+ *
+ * @param handle codec handle.
+ * @param gain volume value, support 0 ~ 100, 0 is mute, 100 is the maximum volume value.
+ * @return kStatus_Success is success, else configure failed.
+ */
+status_t HAL_CODEC_SetMicGain(void *handle, uint32_t gain);
+
 /*!
  * @brief set audio codec module mute.
  *

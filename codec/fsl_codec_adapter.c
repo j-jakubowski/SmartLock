@@ -167,6 +167,37 @@ status_t HAL_CODEC_SetVolume(void *handle, uint32_t playChannel, uint32_t volume
 }
 
 /*!
+ * @brief set audio codec ADC(Analog Mic) Gain.
+ *
+ * @param handle codec handle.
+ * @param gain volume value, support 0 ~ 100, 0 is mute, 100 is the maximum volume value.
+ * @return kStatus_Success is success, else configure failed.
+ */
+status_t HAL_CODEC_SetMicGain(void *handle, uint32_t gain)
+{
+    assert(handle != NULL);
+
+    status_t retVal       = kStatus_Success;
+    uint32_t mappedVolume = 0U;
+
+    const uint16_t maxGain = 255;
+
+    /*
+     * 0 is mute
+     * 1 - 100 is mapped to 0x30 - 0x7F
+     */
+
+	mappedVolume = (gain * maxGain ) / 100U;
+
+    retVal = WM8960_SetVolume((wm8960_handle_t *)((uint32_t)(((codec_handle_t *)handle)->codecDevHandle)),
+    		kWM8960_ModuleADC, mappedVolume);
+
+
+
+    return retVal;
+}
+
+/*!
  * brief set audio codec module mute.
  *
  * param handle codec handle.
