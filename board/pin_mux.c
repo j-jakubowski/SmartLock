@@ -24,6 +24,7 @@ processor_version: 0.0.22
 
 #include "fsl_common.h"
 #include "fsl_iomuxc.h"
+#include "fsl_gpio.h"
 #include "pin_mux.h"
 
 /* FUNCTION ************************************************************************************************************
@@ -71,6 +72,15 @@ BOARD_InitPins:
 void BOARD_InitPins(void) {
   CLOCK_EnableClock(kCLOCK_Iomuxc);           /* iomuxc clock (iomuxc_clk_enable): 0x03U */
 
+  /* GPIO configuration of USER_LED on GPIO_AD_B0_05 (pin 106) */
+  gpio_pin_config_t USER_LED_config = {
+      .direction = kGPIO_DigitalOutput,
+      .outputLogic = 0U,
+      .interruptMode = kGPIO_NoIntmode
+  };
+  /* Initialize GPIO functionality on GPIO_AD_B0_05 (pin 106) */
+  GPIO_PinInit(GPIO1, 5U, &USER_LED_config);
+
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_B0_06_LPUART1_TX,        /* GPIO_AD_B0_06 is configured as LPUART1_TX */
       0U);                                    /* Software Input On Field: Input Path is determined by functionality */
@@ -98,6 +108,17 @@ void BOARD_InitPins(void) {
   IOMUXC_SetPinMux(
       IOMUXC_GPIO_AD_B1_15_LPI2C1_SDA,        /* GPIO_AD_B1_15 is configured as LPI2C1_SDA */
       1U);                                    /* Software Input On Field: Force input path of pad GPIO_AD_B1_15 */
+
+  IOMUXC_SetPinConfig(
+      IOMUXC_GPIO_AD_B0_05_GPIO1_IO05,        /* GPIO_AD_B0_05 PAD functional properties : */
+      0x10B0U);                               /* Slew Rate Field: Slow Slew Rate
+                                                 Drive Strength Field: R0/6
+                                                 Speed Field: medium(100MHz)
+                                                 Open Drain Enable Field: Open Drain Disabled
+                                                 Pull / Keep Enable Field: Pull/Keeper Enabled
+                                                 Pull / Keep Select Field: Keeper
+                                                 Pull Up / Down Config. Field: 100K Ohm Pull Down
+                                                 Hyst. Enable Field: Hysteresis Disabled */
   IOMUXC_SetPinConfig(
       IOMUXC_GPIO_AD_B0_06_LPUART1_TX,        /* GPIO_AD_B0_06 PAD functional properties : */
       0x10B0U);                               /* Slew Rate Field: Slow Slew Rate

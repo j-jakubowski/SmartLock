@@ -14,6 +14,11 @@
 #ifndef _PIN_MUX_H_
 #define _PIN_MUX_H_
 
+/* GPIO_AD_B0_05 (number 106), JTAG_nTRST/J16[3]/USER_LED/J17[5] */
+#define BOARD_USER_LED_GPIO                                                GPIO1   /*!< GPIO device name: GPIO1 */
+#define BOARD_USER_LED_PORT                                                GPIO1   /*!< PORT device name: GPIO1 */
+#define BOARD_USER_LED_PIN                                                    5U   /*!< GPIO1 pin index: 5 */
+
 /***********************************************************************************************************************
  * Definitions
  **********************************************************************************************************************/
