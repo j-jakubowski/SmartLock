@@ -17,7 +17,7 @@
 #include "fsl_debug_console.h"
 
 #include "board.h"
-
+#include <cr_section_macros.h>
 
 /* SAI instance and clock */
 #define CODEC_WM8960
@@ -95,7 +95,10 @@ const clock_audio_pll_config_t audioPllConfig = {
     .denominator = 100, /* 30 bit denominator of fractional loop divider */
 };
 #define WORD_SIZE 2U
-AT_NONCACHEABLE_SECTION_ALIGN(static int8_t Buffer[BUFFER_NUMBER * BUFFER_SIZE * WORD_SIZE], 4);
+
+
+
+__NOINIT (BOARD_SDRAM)static int8_t Buffer[BUFFER_NUMBER * BUFFER_SIZE * WORD_SIZE];
 AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t txHandle);
 AT_NONCACHEABLE_SECTION_INIT(sai_edma_handle_t rxHandle);
 static uint32_t tx_index = 0U, rx_index = 0U;

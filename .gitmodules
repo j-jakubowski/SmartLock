@@ -1,0 +1,3 @@
+[submodule "libs/c_speech_features_arm_cortex"]
+	path = libs/c_speech_features_arm_cortex
+	url = git@github.com:j-jakubowski/c_speech_features_arm_cortex.git
